@@ -22,10 +22,17 @@ int main() {
             it = map.find(word);
             if (it == map.end())
             {
+                /*
+                    можно было бы написать map[word] = 1;
+                    ваш вариант тоже верный, но выглядит чуть сложнее.
+                */
                 map.insert(std::pair <std::string, int>(word, 1));
             }
             else
             {
+                /*
+                вы дважды вызываете find. вам этого делать не нужно. достаточно написать it->second++;
+                */
                 map.find(word)->second++;
             }
         }
@@ -36,6 +43,16 @@ int main() {
             std::string word;
         };
 
+        /*
+            Если вы прочитали про функторы и разобрались, то это очень здорово.
+            Если не очень пока поняли, то достаточно было бы определить ф-ю:
+            bool compare(const Statistics& lhs, const Statistics& rhs)
+            {
+                return lhs.count > rhs.count;
+            }
+            
+            И 3м аргументом в сортировку подставить именно её.
+        */
         struct Statistics_more : public std::binary_function<Statistics, Statistics, bool>
         {
             bool operator()(const Statistics& s1, const Statistics& s2) const
@@ -68,6 +85,13 @@ std::string prepare(const std::string& s)
     std::string result = s;
     std::transform(s.begin(), s.end(), result.begin(), ::tolower);
 
+    /*
+        FIXIT: есть ф-я isalpha или ispunct
+        Либо я в письме в рассылке писал, что лучше воспользоваться множеством std::set,
+        заполнив его знаками препинания.
+        
+        Последний символ строки можно получить либо s[s.length() - 1], либо s.back()
+    */
     if (s[s.length() - 1] == '.' || s[s.length() - 1] == ',' ||
         s[s.length() - 1] == '?' || s[s.length() - 1] == '!')
     {
