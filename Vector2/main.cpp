@@ -20,7 +20,7 @@ int main() {
     cout << "-v2 = " << - v2 << endl;
     cout << "getRotated v1 = " << v1.getRotated(180) << endl;
 
-    v1 += v2;                                       // это работает. А этот вариант нет: cout << "summa2 = " << (v1 += v2) << endl; Почему?
+    v1 += v2;
     cout << "summa2 = " << v1 << endl;
 
     Vector2 v3(2, 2), v4(1, 3);
