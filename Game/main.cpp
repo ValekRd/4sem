@@ -90,7 +90,7 @@ int main()
 			bul.setPosition(i->pos.x, i->pos.y);
 			i->update(0.05);
 
-			//удаление пуль
+			//delete bullet
 			if (i->pos.x > WIDTH || i->pos.x < 0 || i->pos.y > HEIGHT || i->pos.y < 0)
 			{
 				i = bullets.erase(i);
