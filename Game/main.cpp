@@ -28,22 +28,22 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "My window");
 
 
-	//картинка героя
+	//hero picture
 	sf::Texture texture;
 	texture.loadFromFile("hero.png");
 	sf::Sprite circle(texture);
 	circle.setPosition(300, 300);
 
-	//создание лазера
+	//create lazer
 	sf::RectangleShape line(sf::Vector2f(900, 5));
 	line.setFillColor(sf::Color::Red);
 
-	//создание пуль
+	//create bullets
 	std::vector<Bullet> bullets;
 
 	
 
-	//используем время
+	//use time
 	sf::Clock clock;
 
 	float last_shoot_time = 0;
@@ -57,7 +57,7 @@ int main()
 		window.draw(circle);
 		
 		
-		//лазер
+		//Lazer
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -68,7 +68,7 @@ int main()
 			window.draw(line);
 		}
 
-		//пули
+		//Bullets
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			if (time.asMilliseconds() - last_shoot_time > 100)
@@ -116,7 +116,7 @@ int main()
 
 void movingCircle(sf::Sprite& circle, sf::RenderWindow& window)
 {
-	//ориентация на мышь
+	//Mouse orientation
 	sf::Vector2u circleSize = circle.getTexture()->getSize();
 	circle.setOrigin(circleSize.x / 2, circleSize.y / 2);
 
@@ -126,7 +126,7 @@ void movingCircle(sf::Sprite& circle, sf::RenderWindow& window)
 
 	circle.setRotation(90 + atan2f(d.y, d.x) * 180 / Pi);
 
-	//движение
+	//move 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && maymoving(circle, 1))
 	{
 		circle.move(-1, 0);
