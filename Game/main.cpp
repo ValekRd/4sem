@@ -4,8 +4,12 @@
 #define WIDTH 800 
 
 
-
+/*
+в названии ф-и должен быть или подразумеваться глагол ... moveCircle
+*/
 void movingCircle(sf::Sprite& circle, sf::RenderWindow& window);
+
+// называйте единообразно переменные и ф-и mayMoving, lastShootTime
 bool maymoving(const sf::Sprite& circle, int direction);
 
 const float Pi = 3.14159f;
@@ -71,6 +75,7 @@ int main()
 		//Bullets
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
+			// очень хорошо. мало, кто догадался до "времени перезарядки". 
 			if (time.asMilliseconds() - last_shoot_time > 100)
 			{
 				Bullet bul;
@@ -88,6 +93,10 @@ int main()
 			sf::CircleShape bul(5);
 			bul.setFillColor(sf::Color::Yellow);
 			bul.setPosition(i->pos.x, i->pos.y);
+			
+			/*
+			лучше dt вычислять явно ... как время между кадрами.
+			*/
 			i->update(0.05);
 
 			//delete bullet
