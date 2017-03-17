@@ -62,9 +62,15 @@ int main()
 		{
 			Ball particle;
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+			/*
+			 ненужные скобки particle.position = (convert(mousePosition));
+			*/
 			particle.position = (convert(mousePosition));
 			particle.velosity = Vector2(-20 + rand() % 40 , -20 + rand() % 40);
 			particle.radius = rand() % 4 +3;
+			/*
+			для 2д ~r^2
+			*/
 			particle.mass = pow(particle.radius, 3);			//for example mass = radius^3
 			particles.push_back(particle);
 			lastClickTime = time.asMilliseconds();
@@ -80,6 +86,12 @@ int main()
 		particle.setPosition(i->position.x, i->position.y);
 		
 		//Bounce off the walls
+		
+		/*
+		возможно что частицы могут "застревать в стенке" при большой скорости удара.
+		при обработке удара со стеной также лучше проверять, что скорость такова, что 
+		шар летит в стену, а не от нее
+		*/
 		if (i->position.x < i->radius/2)
 		{
 			i->velosity.x = -(i->velosity.x);
@@ -114,11 +126,18 @@ int main()
 					float bounceFactor =  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 					
 					Vector2 pulse = (n * ((dv / (1 / i->mass + 1 / j->mass)) * n)) * (1 + bounceFactor);
-
+					
+					/*
+					 вы разве += и -= не переопределили для своего Vector2
+					*/
 					j->velosity = j->velosity + pulse / j->mass;
 					i->velosity = i->velosity - pulse / i->mass;
 				}
 			}
+		/*
+		попросите Максима П. или Павла К. вам пояснить как dt лучше находить.
+		константа - не лучшее решение
+		*/
 		i->update(0.01);
 
 		window.draw(particle);
