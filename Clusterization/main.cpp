@@ -134,7 +134,7 @@ ClosestCentroidIndices findClosestCentroids(const sf::Image& image, Centroids ce
 	result.resize(image.getSize().x * image.getSize().y);
 	ClosestCentroidLength length;
 	length.resize(K);
-	int minDistance = length[0];
+	int minDistance;
 	int numCentroid = 0;
 	for (int i = 0; i < image.getSize().y; i++)
 	{
@@ -143,7 +143,9 @@ ClosestCentroidIndices findClosestCentroids(const sf::Image& image, Centroids ce
 			for (int m = 0; m < K; m++)
 			{
 				length[m] = getDistance(centroids[m], image.getPixel(n, i));
-			}	
+			}
+	
+			minDistance = length[0];
 
 			//for k centroids
 			for (int k = 0; k < K; k++)
