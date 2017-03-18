@@ -68,10 +68,7 @@ int main()
 			particle.position = (convert(mousePosition));
 			particle.velosity = Vector2(-20 + rand() % 40 , -20 + rand() % 40);
 			particle.radius = rand() % 4 +3;
-			/*
-			для 2д ~r^2
-			*/
-			particle.mass = pow(particle.radius, 3);			//for example mass = radius^3
+			particle.mass = pow(particle.radius, 2);			//for example mass = radius^2
 			particles.push_back(particle);
 			lastClickTime = time.asMilliseconds();
 		}
@@ -130,14 +127,11 @@ int main()
 					/*
 					 вы разве += и -= не переопределили для своего Vector2
 					*/
-					j->velosity = j->velosity + pulse / j->mass;
-					i->velosity = i->velosity - pulse / i->mass;
+					j->velosity = j->velosity - pulse / j->mass;
+					i->velosity = i->velosity + pulse / i->mass;
 				}
 			}
-		/*
-		попросите Максима П. или Павла К. вам пояснить как dt лучше находить.
-		константа - не лучшее решение
-		*/
+		
 		i->update(0.01);
 
 		window.draw(particle);
